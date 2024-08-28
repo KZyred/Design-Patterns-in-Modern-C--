@@ -1,8 +1,11 @@
+// 1. Single Responsibility Principle
+
+// một class chỉ nên giữ một trách nhiệm (chức năng) duy nhất.
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
-#include <boost/lexical_cast.hpp>
 using namespace std;
 
 struct Journal
@@ -24,7 +27,7 @@ struct Journal
 void Journal::add(const string &entry)
 {
     static int count = 1;
-    entries.push_back(boost::lexical_cast<string>(count++) + ": " + entry);
+    entries.push_back(to_string(count++) + ": " + entry);
 }
 
 void Journal::save(const string &filename)
@@ -44,7 +47,7 @@ struct PersistenceManager
     }
 };
 
-void main()
+int main()
 {
     Journal journal{"Dear Diary"};
     journal.add("I ate a bug");
@@ -54,4 +57,6 @@ void main()
 
     PersistenceManager pm;
     pm.save(journal, "diary.txt");
+
+    return 0;
 }
